@@ -1,11 +1,11 @@
 /* --- 1. CSS Selectors & Color Theory --- */
 :root {
-  --bg-color: #f8fafc;
+  --bg-color: #f8e3fa;
   --card-bg: #ffffff;
   --text-main: #334155;
   --text-heading: #0f172a;
-  --accent-color: #6366f1; /* Indigo accent */
-  --accent-hover: #4f46e5;
+  --accent-color: #ff70e0; /* Indigo accent */
+  --accent-hover: #ed8cdd;
 }
 
 body {
@@ -31,7 +31,7 @@ main {
 }
 
 .hero {
-  background: linear-gradient(135deg, #6366f1, #a855f7);
+  background: linear-gradient(135deg, #bc73f0, #c16de8);
   color: white;
   text-align: center;
   /* Box Model: padding creates breathing room inside, margin spaces it out */
