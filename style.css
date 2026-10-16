@@ -31,7 +31,7 @@ main {
 }
 
 .hero {
-  background: linear-gradient(135deg, #bc73f0, #c16de8);
+  background: linear-gradient(135deg, #eb75df, #c16de8);
   color: white;
   text-align: center;
   /* Box Model: padding creates breathing room inside, margin spaces it out */
