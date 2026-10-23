@@ -4,15 +4,14 @@
   --card-bg: #ffffff;
   --text-main: #334155;
   --text-heading: #0f172a;
-  --accent-color: #ff70e0; /* Indigo accent */
+  --accent-color: #ff70e0;
   --accent-hover: #ed8cdd;
 }
 
 body {
   background-color: var(--bg-color);
   color: var(--text-main);
-  /* Web Fonts setup */
-  font-family: 'Inter', times new roman;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
   line-height: 1.6;
   margin: 0;
   padding: 0;
@@ -22,18 +21,55 @@ h1, h2, h3 {
   color: var(--text-heading);
 }
 
-/* --- 2. Spacing & The CSS Box Model --- */
-main {
-  max-width: 700px;
-  margin: 0 auto; /* Centers the main container */
-  padding: 2rem 1rem;
+/* --- 2. Styled Navigation Bar (Flexbox) --- */
+.navbar {
+  display: flex;
+  justify-content: space-between; /* Pushes Logo to left, Links to right */
+  align-items: center;            /* Centers items vertically */
+  background-color: #ffffff;
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
+.nav-logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-heading);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  gap: 1.5rem; /* Flexbox spacing between items */
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links a {
+  color: var(--text-main);
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+/* Navigation Hover Effect */
+.nav-links a:hover {
+  color: var(--accent-color);
+  background-color: #f1f5f9;
+  text-decoration: none;
+}
+
+/* --- 3. Hero & Layout Setup --- */
 .hero {
   background: linear-gradient(135deg, #eb75df, #c16de8);
   color: white;
   text-align: center;
-  /* Box Model: padding creates breathing room inside, margin spaces it out */
   padding: 4rem 2rem;
   margin-bottom: 2rem;
 }
@@ -50,23 +86,71 @@ main {
   margin: 0;
 }
 
-/* Card classes use the Box Model: content + padding + border + margin */
+main {
+  max-width: 1100px; /* Increased width to accommodate grid columns */
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+/* --- 4. CSS Grid for Multi-Column Cards --- */
+.card-grid {
+  display: grid;
+  /* Automatically creates responsive columns (min width 280px each) */
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem; /* Space between rows and columns */
+  margin-top: 1.5rem;
+}
+
+/* --- 5. Card Styling & Hover Effects --- */
 .card {
   background-color: var(--card-bg);
   border: 1px solid #e2e8f0;
-  border-radius: 8px;
-  padding: 2rem;       /* Space inside the box */
-  margin-bottom: 1.5rem; /* Space outside/between boxes */
+  border-radius: 12px;
+  padding: 2rem;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  
+  /* Flexbox inside card for alignment */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  /* Smooth Transitions for Hover Effects */
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
-.card h2 {
+/* Hover Effect: Card Lift & Glow */
+.card:hover {
+  transform: translateY(-6px); /* Moves card up slightly */
+  box-shadow: 0 12px 20px -3px rgba(235, 117, 223, 0.25);
+  border-color: var(--accent-color);
+}
+
+.card h3 {
   margin-top: 0;
   border-bottom: 2px solid #f1f5f9;
   padding-bottom: 0.5rem;
 }
 
-/* --- 3. Styling Links & Lists --- */
+/* Optional Card Button Style */
+.card-btn {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.6rem 1.2rem;
+  background-color: var(--accent-color);
+  color: white;
+  border-radius: 6px;
+  text-align: center;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.card-btn:hover {
+  background-color: var(--accent-hover);
+  color: white;
+  text-decoration: none;
+  transform: scale(1.02);
+}
+
+/* --- 6. General Links & Footer --- */
 a {
   color: var(--accent-color);
   text-decoration: none;
@@ -84,7 +168,7 @@ a:hover {
   padding: 0;
   margin: 0;
   display: flex;
-  gap: 1.5rem; /* Spacing between list items */
+  gap: 1.5rem;
 }
 
 footer {
