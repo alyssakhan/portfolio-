@@ -1,58 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Alyssa's Portfolio</title>
-  <!-- Google Fonts Link -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-  
-  <!-- Link to your CSS file -->
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
+<header>
+  <nav class="navbar">
+    <div class="nav-logo">MyPortfolio</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+</header>
 
-  <!-- Header Section -->
-  <header class="hero">
-    <h1>Alyssa Khan</h1>
-    <p class="tagline">Welcome to my site!</p>
-  </header>
+<div class="hero">
+  <h1>Welcome to My Portfolio</h1>
+  <p class="tagline">Showcasing my learnings and projects</p>
+</div>
 
-  <!-- Main Content Area -->
-  <main>
-    
-    <!-- Bio Section -->
-    <section class="card">
-      <h2>About</h2>
-      <p>Hello! I am a student learning how the web works, starting with structural HTML and web development fundamentals.</p>
-      <p> I will use this website as my profesional portfolio.<p> 
-      <p>You can visit my Neocities website <a href="https://alyssakhan.neocities.org" target="_blank" rel="noopener">alyssakhan.neocities.org</a></p>
-    </section>
+<main>
+  <section id="projects">
+    <h2>Past Learnings & Projects</h2>
+    <div class="card-grid">
+      <!-- Card 1 -->
+      <article class="card project-card">
+        <h3>Project One</h3>
+        <p>A brief description of what you learned or built for this project.</p>
+        <a href="#" class="card-btn">View Project &rarr;</a>
+      </article>
 
-    <!-- Learnings and Projects Section -->
-    <section class="card">
-      <h2>Learnings &amp; Projects</h2>
-      <p>Projects and web development milestones will be added here soon.</p>
-    </section>
+      <!-- Card 2 -->
+      <article class="card project-card">
+        <h3>Project Two</h3>
+        <p>A brief description of what you learned or built for this project.</p>
+        <a href="#" class="card-btn">View Project &rarr;</a>
+      </article>
 
-    <!-- Contact Section -->
-    <section class="card">
-      <h2>Contact</h2>
-      <p>Feel free to reach out to me through any of the links below:</p>
-      <ul class="contact-list">
-        <li><a href="mailto:alyssarkhan.25@gmail.com">Email Me</a></li>
-        <li><a href="https://github.com/alyssakhan" target="_blank" rel="noopener">GitHub</a></li>
-      </ul>
-    </section>
-
-  </main>
-
-  <!-- Footer Section -->
-  <footer>
-    <p>&copy; 2026 Khan.</p>
-  </footer>
-
-</body>
-</html>
+      <!-- Card 3 -->
+      <article class="card project-card">
+        <h3>Project Three</h3>
+        <p>A brief description of what you learned or built for this project.</p>
+        <a href="#" class="card-btn">View Project &rarr;</a>
+      </article>
+    </div>
+  </section>
+</main>
