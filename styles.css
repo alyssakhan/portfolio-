@@ -65,7 +65,6 @@ h3 { font-size: var(--fs-h3); }
   padding: 0.75rem 1rem;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
   z-index: 100;
-  /* not sticky on phones, so it doesn't eat screen space */
 }
 
 .nav-logo {
@@ -181,7 +180,7 @@ main {
   text-decoration: none;
 }
 
-/* Hover lift only on devices that actually hover (not touch screens) */
+/* Hover lift only on devices that actually hover */
 @media (hover: hover) {
   .card:hover {
     transform: translateY(-6px);
@@ -232,7 +231,7 @@ footer {
     flex-direction: row;
     justify-content: space-between;
     padding: 1rem 2rem;
-    position: sticky;         /* sticky nav only where there's room */
+    position: sticky;           /* sticky nav only where there's room */
     top: 0;
   }
 
