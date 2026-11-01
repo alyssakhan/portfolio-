@@ -209,3 +209,21 @@ footer {
     padding: 3rem 1rem;
   }
 }
+
+@media (max-width: 600px) {
+  .navbar {
+    flex-wrap: wrap;
+    padding: 0.75rem 1rem;
+    gap: 0.5rem;
+  }
+
+  .nav-links {
+    flex-wrap: wrap;
+    gap: 0.25rem;
+  }
+
+  .nav-links a {
+    padding: 0.4rem 0.5rem;
+    font-size: 0.9rem;
+  }
+}
