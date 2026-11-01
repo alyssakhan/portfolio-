@@ -1,6 +1,4 @@
-/* ==============================
-   1. Variables & Base (mobile)
-   ============================== */
+/* --- 1. CSS Selectors & Color Theory --- */
 :root {
   --bg-color: #f8e3fa;
   --card-bg: #ffffff;
@@ -8,152 +6,123 @@
   --text-heading: #0f172a;
   --accent-color: #ff70e0;
   --accent-hover: #ed8cdd;
-
-  /* Fluid typography: min, preferred (scales with viewport), max */
-  --fs-body: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
-  --fs-h1: clamp(1.9rem, 1.2rem + 3.5vw, 3.5rem);
-  --fs-h2: clamp(1.5rem, 1.2rem + 1.5vw, 2.25rem);
-  --fs-h3: clamp(1.15rem, 1.05rem + 0.5vw, 1.4rem);
-
-  /* Fluid spacing */
-  --space-section: clamp(1rem, 0.5rem + 2.5vw, 2rem);
-}
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: 5rem; /* keeps anchored sections from hiding under the navbar */
 }
 
 body {
   background-color: var(--bg-color);
   color: var(--text-main);
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  font-size: var(--fs-body);
   line-height: 1.6;
   margin: 0;
   padding: 0;
 }
 
-img {
-  max-width: 100%;
-  height: auto;
-}
-
 h1, h2, h3 {
   color: var(--text-heading);
-  line-height: 1.2;
 }
 
-h2 { font-size: var(--fs-h2); }
-h3 { font-size: var(--fs-h3); }
-
-/* ==============================
-   2. Navigation (mobile: stacked)
-   ============================== */
+/* --- 2. Styled Navigation Bar (Flexbox) --- */
 .navbar {
   display: flex;
-  flex-direction: column;     /* logo above links on phones */
-  align-items: center;
-  gap: 0.5rem;
+  justify-content: space-between; /* Pushes Logo to left, Links to right */
+  align-items: center;            /* Centers items vertically */
   background-color: #ffffff;
-  padding: 0.75rem 1rem;
+  padding: 1rem 2rem;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0;
   z-index: 100;
 }
 
 .nav-logo {
-  font-size: 1.3rem;
+  font-size: 1.5rem;
   font-weight: 700;
   color: var(--text-heading);
 }
 
 .nav-links {
   display: flex;
-  flex-wrap: wrap;            /* links wrap instead of overflowing */
-  justify-content: center;
-  gap: 0.25rem 0.5rem;
+  align-items: center;
   list-style: none;
+  gap: 1.5rem; /* Flexbox spacing between items */
   margin: 0;
   padding: 0;
 }
 
 .nav-links a {
-  display: inline-block;
-  min-height: 44px;           /* comfortable tap target */
-  line-height: 44px;
-  padding: 0 0.75rem;
   color: var(--text-main);
   text-decoration: none;
   font-weight: 500;
+  padding: 0.5rem 0.75rem;
   border-radius: 6px;
   transition: all 0.3s ease;
 }
 
+/* Navigation Hover Effect */
 .nav-links a:hover {
   color: var(--accent-color);
   background-color: #f1f5f9;
   text-decoration: none;
 }
 
-/* ==============================
-   3. Hero & Layout
-   ============================== */
+/* --- 3. Hero & Layout Setup --- */
 .hero {
   background: linear-gradient(135deg, #eb75df, #c16de8);
   color: white;
   text-align: center;
-  padding: clamp(2.5rem, 8vw, 5rem) 1rem;
-  margin-bottom: var(--space-section);
+  padding: 4rem 2rem;
+  margin-bottom: 2rem;
 }
 
 .hero h1 {
   color: white;
-  font-size: var(--fs-h1);
+  font-size: 3rem;
   margin: 0 0 0.5rem 0;
 }
 
 .tagline {
-  font-size: clamp(1rem, 0.9rem + 0.6vw, 1.3rem);
+  font-size: 1.2rem;
   opacity: 0.9;
   margin: 0;
 }
 
 main {
-  width: 100%;
-  max-width: 1100px;
+  max-width: 1100px; /* Increased width to accommodate grid columns */
   margin: 0 auto;
-  padding: var(--space-section) 1rem;
+  padding: 2rem 1rem;
 }
 
-/* ==============================
-   4. Card Grid (mobile: 1 column)
-   ============================== */
+/* --- 4. CSS Grid for Multi-Column Cards --- */
 .card-grid {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 1rem;
+  /* Automatically creates responsive columns (min width 280px each) */
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem; /* Space between rows and columns */
   margin-top: 1.5rem;
 }
 
-/* ==============================
-   5. Cards
-   ============================== */
+/* --- 5. Card Styling & Hover Effects --- */
 .card {
   background-color: var(--card-bg);
   border: 1px solid #e2e8f0;
   border-radius: 12px;
-  padding: 1.25rem;
+  padding: 2rem;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  
+  /* Flexbox inside card for alignment */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  /* Smooth Transitions for Hover Effects */
   transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+/* Hover Effect: Card Lift & Glow */
+.card:hover {
+  transform: translateY(-6px); /* Moves card up slightly */
+  box-shadow: 0 12px 20px -3px rgba(235, 117, 223, 0.25);
+  border-color: var(--accent-color);
 }
 
 .card h3 {
@@ -162,10 +131,11 @@ main {
   padding-bottom: 0.5rem;
 }
 
+/* Optional Card Button Style */
 .card-btn {
-  display: block;             /* full-width button on phones */
+  display: inline-block;
   margin-top: 1rem;
-  padding: 0.8rem 1.2rem;     /* 44px+ tall */
+  padding: 0.6rem 1.2rem;
   background-color: var(--accent-color);
   color: white;
   border-radius: 6px;
@@ -178,23 +148,10 @@ main {
   background-color: var(--accent-hover);
   color: white;
   text-decoration: none;
+  transform: scale(1.02);
 }
 
-/* Hover lift only on devices that actually hover */
-@media (hover: hover) {
-  .card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 12px 20px -3px rgba(235, 117, 223, 0.25);
-    border-color: var(--accent-color);
-  }
-  .card-btn:hover {
-    transform: scale(1.02);
-  }
-}
-
-/* ==============================
-   6. Links, Contact, Footer
-   ============================== */
+/* --- 6. General Links & Footer --- */
 a {
   color: var(--accent-color);
   text-decoration: none;
@@ -212,70 +169,12 @@ a:hover {
   padding: 0;
   margin: 0;
   display: flex;
-  flex-wrap: wrap;
-  gap: 1rem 1.5rem;
+  gap: 1.5rem;
 }
 
 footer {
   text-align: center;
-  padding: 2rem 1rem;
+  padding: 2rem;
   font-size: 0.9rem;
   color: #64748b;
-}
-
-/* ==============================
-   7. TABLET (768px and up)
-   ============================== */
-@media (min-width: 768px) {
-  .navbar {
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 1rem 2rem;
-    position: sticky;           /* sticky nav only where there's room */
-    top: 0;
-  }
-
-  .nav-logo { font-size: 1.5rem; }
-
-  .nav-links { gap: 1rem; }
-
-  .card-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
-  }
-
-  .card { padding: 1.75rem; }
-
-  .card-btn {
-    display: inline-block;    /* back to auto-width */
-    align-self: flex-start;
-  }
-}
-
-/* ==============================
-   8. DESKTOP (1024px and up)
-   ============================== */
-@media (min-width: 1024px) {
-  .card-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  .card { padding: 2rem; }
-}
-
-/* ==============================
-   9. Extra-small phones (max-width)
-   ============================== */
-@media (max-width: 360px) {
-  .navbar { padding: 0.5rem; }
-  .nav-links a { padding: 0 0.5rem; }
-  .card { padding: 1rem; }
-}
-
-/* Respect users who prefer less motion */
-@media (prefers-reduced-motion: reduce) {
-  * {
-    transition: none !important;
-    scroll-behavior: auto !important;
-  }
 }
