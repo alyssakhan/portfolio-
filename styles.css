@@ -1,11 +1,21 @@
 /* --- 1. CSS Selectors & Color Theory --- */
 :root {
-  --bg-color: #f8e3fa;
-  --card-bg: #ffffff;
-  --text-main: #334155;
-  --text-heading: #0f172a;
-  --accent-color: #ff70e0;
-  --accent-hover: #ed8cdd;
+  
+  --nav-bg: #ffffff;
+  --border: #e2e8f0;
+  --border-soft: #f1f5f9;
+  --hover-bg: #f1f5f9;
+}
+
+[data-theme="dark"] {
+  --bg-color: #1a1423;
+  --card-bg: #2a2133;
+  --text-main: #cbd5e1;
+  --text-heading: #f8fafc;
+  --nav-bg: #231a2c;
+  --border: #3b2f47;
+  --border-soft: #3b2f47;
+  --hover-bg: #342940;
 }
 
 body {
