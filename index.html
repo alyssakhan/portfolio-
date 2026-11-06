@@ -6,46 +6,14 @@
   <title>My Portfolio</title>
   <link rel="stylesheet" href="styles.css">
 
-<script>
-  const saved = localStorage.getItem('theme');
-  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  document.documentElement.dataset.theme = saved || (prefersDark ? 'dark' : 'light');
-</script>
-  
-</head>
+  <!-- Stays in the head: sets the theme before the page paints (no flash) -->
   <script>
-  const root = document.documentElement;
-  const toggle = document.getElementById('theme-toggle');
-  const navbar = document.querySelector('.navbar');
+    const saved = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    document.documentElement.dataset.theme = saved || (prefersDark ? 'dark' : 'light');
+  </script>
+</head>
 
-  const syncIcon = () =>
-    toggle.textContent = root.dataset.theme === 'dark' ? '🌝' : '🌚';
-  syncIcon();
-
-  toggle.addEventListener('click', () => {
-    root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
-    localStorage.setItem('theme', root.dataset.theme);
-    syncIcon();
-  });
-
-  // Stronger shadow once the page is scrolled
-  window.addEventListener('scroll', () => {
-    navbar.classList.toggle('scrolled', window.scrollY > 10);
-  });
-
-  // Highlight the nav link for the section in view
-  const links = document.querySelectorAll('.nav-links a[href^="#"]');
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        links.forEach(l =>
-          l.classList.toggle('active', l.getAttribute('href') === '#' + entry.target.id));
-      }
-    });
-  }, { rootMargin: '-40% 0px -55% 0px' });
-
-  document.querySelectorAll('section[id]').forEach(s => observer.observe(s));
-</script>
 <body>
 
   <header>
@@ -56,7 +24,7 @@
         <li><a href="#projects">Projects</a></li>
         <li><a href="#skills">Skills</a></li>
         <li><a href="#contact">Contact</a></li>
-          <li><button id="theme-toggle" aria-label="Toggle dark mode">🌚</button></li>
+        <li><button id="theme-toggle" aria-label="Toggle dark mode">🌚</button></li>
       </ul>
     </nav>
   </header>
@@ -67,19 +35,25 @@
   </div>
 
   <main>
+    <section id="about">
+      <h2>About Me</h2>
+      <p>Write a short intro about yourself here: who you are, what you're learning, and what you love to build.</p>
+    </section>
+
     <section id="projects">
-      <h2>Past Learnings & Projects</h2>
+      <h2>Past Learnings &amp; Projects</h2>
       <div class="card-grid">
         <!-- Card 1 -->
-<article class="card project-card">
-  <h3>Project One</h3>
-  <p>This is was the first website I coded! It has some fun moving features</p>
-  <a href="https://alyssakhan.neocities.org" class="card-btn">View Project &rarr;</a>
-</article>
+        <article class="card project-card">
+          <h3>Project One</h3>
+          <p>This was the first website I coded! It has some fun moving features.</p>
+          <a href="https://alyssakhan.neocities.org" class="card-btn">View Project &rarr;</a>
+        </article>
+
         <!-- Card 2 -->
         <article class="card project-card">
           <h3>Project Two</h3>
-          <p>This is a mini game I coded as a prototype for a workhsop that I am leading. </p>
+          <p>This is a mini game I coded as a prototype for a workshop that I am leading.</p>
           <a href="https://trinket.strivemath.org/html/b581208ff65b?outputOnly=true" class="card-btn">View Project &rarr;</a>
         </article>
 
@@ -91,7 +65,62 @@
         </article>
       </div>
     </section>
+
+    <section id="skills">
+      <h2>Skills</h2>
+      <ul class="skills-list">
+        <li>HTML</li>
+        <li>CSS</li>
+        <li>JavaScript</li>
+      </ul>
+    </section>
+
+    <section id="contact">
+      <h2>Contact</h2>
+      <ul class="contact-list">
+        <li><a href="mailto:you@example.com">Email</a></li>
+        <li><a href="https://github.com/your-username">GitHub</a></li>
+      </ul>
+    </section>
   </main>
 
+  <footer>
+    <p>&copy; 2026 My Portfolio</p>
+  </footer>
+
+  <!-- Moved to the end of the body so the elements exist when it runs -->
+  <script>
+    const root = document.documentElement;
+    const toggle = document.getElementById('theme-toggle');
+    const navbar = document.querySelector('.navbar');
+
+    const syncIcon = () =>
+      toggle.textContent = root.dataset.theme === 'dark' ? '🌝' : '🌚';
+    syncIcon();
+
+    toggle.addEventListener('click', () => {
+      root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+      localStorage.setItem('theme', root.dataset.theme);
+      syncIcon();
+    });
+
+    // Stronger shadow once the page is scrolled
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 10);
+    });
+
+    // Highlight the nav link for the section in view
+    const links = document.querySelectorAll('.nav-links a[href^="#"]');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          links.forEach(l =>
+            l.classList.toggle('active', l.getAttribute('href') === '#' + entry.target.id));
+        }
+      });
+    }, { rootMargin: '-40% 0px -55% 0px' });
+
+    document.querySelectorAll('section[id]').forEach(s => observer.observe(s));
+  </script>
 </body>
 </html>
