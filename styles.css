@@ -1,6 +1,12 @@
-/* --- 1. CSS Selectors & Color Theory --- */
+/* --- 1. CSS Variables & Color Theory --- */
 :root {
-  
+  --bg-color: #f8fafc;
+  --card-bg: #ffffff;
+  --text-main: #475569;
+  --text-heading: #0f172a;
+  --accent-color: #c16de8;
+  --accent-hover: #a24fcf;
+
   --nav-bg: #ffffff;
   --border: #e2e8f0;
   --border-soft: #f1f5f9;
@@ -12,10 +18,18 @@
   --card-bg: #2a2133;
   --text-main: #cbd5e1;
   --text-heading: #f8fafc;
+  --accent-color: #e08af0;
+  --accent-hover: #f0aefa;
+
   --nav-bg: #231a2c;
   --border: #3b2f47;
   --border-soft: #3b2f47;
   --hover-bg: #342940;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
 }
 
 body {
@@ -34,14 +48,18 @@ h1, h2, h3 {
 /* --- 2. Styled Navigation Bar (Flexbox) --- */
 .navbar {
   display: flex;
-  justify-content: space-between; /* Pushes Logo to left, Links to right */
-  align-items: center;            /* Centers items vertically */
-  background-color: var(--nav-bg);   
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--nav-bg);
   padding: 1rem 2rem;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
   position: sticky;
   top: 0;
   z-index: 100;
+}
+
+.navbar.scrolled {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
 }
 
 .nav-logo {
@@ -54,7 +72,7 @@ h1, h2, h3 {
   display: flex;
   align-items: center;
   list-style: none;
-  gap: 1.5rem; /* Flexbox spacing between items */
+  gap: 1.5rem;
   margin: 0;
   padding: 0;
 }
@@ -68,11 +86,28 @@ h1, h2, h3 {
   transition: all 0.3s ease;
 }
 
-/* Navigation Hover Effect */
-.nav-links a:hover {
+.nav-links a:hover,
+.nav-links a.active {
   color: var(--accent-color);
-  background-color: var(--hover-bg);   /* was #f1f5f9 */
+  background-color: var(--hover-bg);
   text-decoration: none;
+}
+
+/* Theme toggle button */
+#theme-toggle {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  width: 2.4rem;
+  height: 2.4rem;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+#theme-toggle:hover {
+  background-color: var(--hover-bg);
+  transform: rotate(15deg);
 }
 
 /* --- 3. Hero & Layout Setup --- */
@@ -97,51 +132,49 @@ h1, h2, h3 {
 }
 
 main {
-  max-width: 1100px; /* Increased width to accommodate grid columns */
+  max-width: 1100px;
   margin: 0 auto;
   padding: 2rem 1rem;
+}
+
+section {
+  margin-bottom: 3rem;
 }
 
 /* --- 4. CSS Grid for Multi-Column Cards --- */
 .card-grid {
   display: grid;
-  /* Automatically creates responsive columns (min width 280px each) */
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem; /* Space between rows and columns */
+  gap: 1.5rem;
   margin-top: 1.5rem;
 }
 
 /* --- 5. Card Styling & Hover Effects --- */
 .card {
   background-color: var(--card-bg);
-  border: 1px solid var(--border);   /* was #e2e8f0 */
+  border: 1px solid var(--border);
   border-radius: 12px;
   padding: 2rem;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-  
-  /* Flexbox inside card for alignment */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-
-  /* Smooth Transitions for Hover Effects */
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease,
+              border-color 0.3s ease, background-color 0.3s ease;
 }
 
-/* Hover Effect: Card Lift & Glow */
 .card:hover {
-  transform: translateY(-6px); /* Moves card up slightly */
+  transform: translateY(-6px);
   box-shadow: 0 12px 20px -3px rgba(235, 117, 223, 0.25);
   border-color: var(--accent-color);
 }
 
 .card h3 {
   margin-top: 0;
-  border-bottom: 2px solid var(--border-soft);   /* was #f1f5f9 */
+  border-bottom: 2px solid var(--border-soft);
   padding-bottom: 0.5rem;
 }
 
-/* Optional Card Button Style */
 .card-btn {
   display: inline-block;
   margin-top: 1rem;
@@ -161,7 +194,24 @@ main {
   transform: scale(1.02);
 }
 
-/* --- 6. General Links & Footer --- */
+/* --- 6. Skills, Links, Contact & Footer --- */
+.skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0 0;
+}
+
+.skills-list li {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.4rem 1rem;
+  font-weight: 500;
+}
+
 a {
   color: var(--accent-color);
   text-decoration: none;
@@ -179,6 +229,7 @@ a:hover {
   padding: 0;
   margin: 0;
   display: flex;
+  flex-wrap: wrap;
   gap: 1.5rem;
 }
 
@@ -188,10 +239,16 @@ footer {
   font-size: 0.9rem;
   color: #64748b;
 }
-/* --- Mobile Navbar Fix --- */
+
+/* Smooth theme switching */
+body, .navbar {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* --- Mobile --- */
 @media (max-width: 600px) {
   .navbar {
-    flex-direction: column;   /* Logo on top, links below */
+    flex-direction: column;
     gap: 0.5rem;
     padding: 0.75rem 1rem;
   }
@@ -201,34 +258,8 @@ footer {
   }
 
   .nav-links {
-    flex-wrap: wrap;          /* Links wrap instead of overflowing */
+    flex-wrap: wrap;
     justify-content: center;
-    gap: 0.25rem;
-  }
-
-  .nav-links a {
-    padding: 0.4rem 0.6rem;
-    font-size: 0.95rem;
-  }
-
-  .hero h1 {
-    font-size: 2.2rem;       
-  }
-
-  .hero {
-    padding: 3rem 1rem;
-  }
-}
-
-@media (max-width: 600px) {
-  .navbar {
-    flex-wrap: wrap;
-    padding: 0.75rem 1rem;
-    gap: 0.5rem;
-  }
-
-  .nav-links {
-    flex-wrap: wrap;
     gap: 0.25rem;
   }
 
@@ -236,28 +267,12 @@ footer {
     padding: 0.4rem 0.5rem;
     font-size: 0.9rem;
   }
-}
-html { scroll-behavior: smooth; scroll-padding-top: 80px; }
 
-body, .navbar, .card {
-  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-}
+  .hero {
+    padding: 3rem 1rem;
+  }
 
-#theme-toggle {
-  background: none;
-  border: 1px solid var(--border);
-  border-radius: 50%;
-  width: 2.4rem;
-  height: 2.4rem;
-  font-size: 1.1rem;
-  cursor: pointer;
-  transition: transform 0.2s ease, background-color 0.2s ease;
-}
-#theme-toggle:hover { background-color: var(--hover-bg); transform: rotate(15deg); }
-
-.navbar.scrolled { box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15); }
-
-.nav-links a.active {
-  color: var(--accent-color);
-  background-color: var(--hover-bg);
+  .hero h1 {
+    font-size: 2.2rem;
+  }
 }
