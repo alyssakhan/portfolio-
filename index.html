@@ -5,7 +5,47 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Portfolio</title>
   <link rel="stylesheet" href="styles.css">
+
+<script>
+  const saved = localStorage.getItem('theme');
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  document.documentElement.dataset.theme = saved || (prefersDark ? 'dark' : 'light');
+</script>
+  
 </head>
+  <script>
+  const root = document.documentElement;
+  const toggle = document.getElementById('theme-toggle');
+  const navbar = document.querySelector('.navbar');
+
+  const syncIcon = () =>
+    toggle.textContent = root.dataset.theme === 'dark' ? '🌝' : '🌚';
+  syncIcon();
+
+  toggle.addEventListener('click', () => {
+    root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+    localStorage.setItem('theme', root.dataset.theme);
+    syncIcon();
+  });
+
+  // Stronger shadow once the page is scrolled
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 10);
+  });
+
+  // Highlight the nav link for the section in view
+  const links = document.querySelectorAll('.nav-links a[href^="#"]');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        links.forEach(l =>
+          l.classList.toggle('active', l.getAttribute('href') === '#' + entry.target.id));
+      }
+    });
+  }, { rootMargin: '-40% 0px -55% 0px' });
+
+  document.querySelectorAll('section[id]').forEach(s => observer.observe(s));
+</script>
 <body>
 
   <header>
@@ -16,6 +56,7 @@
         <li><a href="#projects">Projects</a></li>
         <li><a href="#skills">Skills</a></li>
         <li><a href="#contact">Contact</a></li>
+          <li><button id="theme-toggle" aria-label="Toggle dark mode">🌙</button></li>
       </ul>
     </nav>
   </header>
