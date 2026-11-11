@@ -37,33 +37,20 @@
   <main>
     <section id="about">
       <h2>About Me</h2>
-      <p>Hello, I will add more details here once I am finised the desginig and aspect of this cite. </p>
+      <p>Hello, I will add more details here once I am finished the designing aspect of this site.</p>
     </section>
 
     <section id="projects">
       <h2>Past Learnings &amp; Projects</h2>
-      <div class="card-grid">
-        <!-- Card 1 -->
-        <article class="card project-card">
-          <h3>Project One</h3>
-          <p>This was the first website I coded! It has some fun moving features.</p>
-          <a href="https://alyssakhan.neocities.org" class="card-btn">View Project &rarr;</a>
-        </article>
 
-        <!-- Card 2 -->
-        <article class="card project-card">
-          <h3>Project Two</h3>
-          <p>This is a mini game I coded as a prototype for a workshop that I am leading.</p>
-          <a href="https://trinket.strivemath.org/html/b581208ff65b?outputOnly=true" class="card-btn">View Project &rarr;</a>
-        </article>
-
-        <!-- Card 3 -->
-        <article class="card project-card">
-          <h3>Project Three</h3>
-          <p>TBD</p>
-          <a href="#" class="card-btn">View Project &rarr;</a>
-        </article>
+      <div class="filter-bar" id="filter-bar">
+        <button class="filter-btn active" data-filter="All">All</button>
+        <button class="filter-btn" data-filter="Coding">Coding</button>
+        <button class="filter-btn" data-filter="Design">Design</button>
+        <button class="filter-btn" data-filter="Hardware">Hardware</button>
       </div>
+
+      <div class="card-grid" id="project-grid"></div>
     </section>
 
     <section id="skills">
@@ -79,13 +66,13 @@
       <h2>Contact</h2>
       <ul class="contact-list">
         <li><a href="https://github.com/alyssakhan">GitHub</a></li>
-        <li><a href="https://canva.link/khanresume">Resume</a><li>
+        <li><a href="https://canva.link/khanresume">Resume</a></li>
       </ul>
     </section>
   </main>
 
   <footer>
-    <p>&copy; Khan 2026 </p>
+    <p>&copy; Khan 2026</p>
   </footer>
 
   <!-- Moved to the end of the body so the elements exist when it runs -->
@@ -121,6 +108,74 @@
     }, { rootMargin: '-40% 0px -55% 0px' });
 
     document.querySelectorAll('section[id]').forEach(s => observer.observe(s));
+
+    // --- Project data ---
+    const projects = [
+      {
+        title: 'Project One',
+        description: 'This was the first website I coded! It has some fun moving features.',
+        url: 'https://alyssakhan.neocities.org',
+        category: 'Coding'
+      },
+      {
+        title: 'Project Two',
+        description: 'This is a mini game I coded as a prototype for a workshop that I am leading.',
+        url: 'https://trinket.strivemath.org/html/b581208ff65b?outputOnly=true',
+        category: 'Coding'
+      },
+      {
+        title: 'Project Three',
+        description: 'TBD',
+        url: '#',
+        category: 'Design' // change this to match the real project
+      }
+    ];
+
+    const grid = document.getElementById('project-grid');
+    const filterBar = document.getElementById('filter-bar');
+    const filterButtons = document.querySelectorAll('.filter-btn');
+
+    // --- Build one card and add it to the page ---
+    function createCard(project, index) {
+      const card = document.createElement('article');
+      card.className = 'card project-card fade-in';
+      card.style.animationDelay = `${index * 80}ms`; // stagger the cards
+
+      card.innerHTML = `
+        <h3>${project.title}</h3>
+        <p>${project.description}</p>
+        <a href="${project.url}" class="card-btn">View Project &rarr;</a>
+      `;
+      grid.appendChild(card);
+    }
+
+    // --- Clear the grid, then re-draw only the matching projects ---
+    function renderProjects(category) {
+      grid.innerHTML = ''; // removes all existing cards
+
+      const visible = category === 'All'
+        ? projects
+        : projects.filter(p => p.category === category);
+
+      if (visible.length === 0) {
+        grid.innerHTML = `<p class="empty-message">Nothing in ${category} yet, check back soon!</p>`;
+        return;
+      }
+
+      visible.forEach((project, index) => createCard(project, index));
+    }
+
+    // --- Handle filter clicks (one listener on the bar, not one per button) ---
+    filterBar.addEventListener('click', e => {
+      const btn = e.target.closest('.filter-btn');
+      if (!btn) return;
+
+      filterButtons.forEach(b => b.classList.toggle('active', b === btn));
+      renderProjects(btn.dataset.filter);
+    });
+
+    // Show everything on first load
+    renderProjects('All');
   </script>
 </body>
 </html>
