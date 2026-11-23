@@ -23,6 +23,7 @@
         <li><a href="#about">About</a></li>
         <li><a href="#projects">Projects</a></li>
         <li><a href="#skills">Skills</a></li>
+        <li><a href="#github">GitHub</a></li>
         <li><a href="#contact">Contact</a></li>
         <li><button id="theme-toggle" aria-label="Toggle dark mode">🌚</button></li>
       </ul>
@@ -59,6 +60,15 @@
         <li>CSS</li>
         <li>Python</li>
       </ul>
+    </section>
+
+    <section id="github">
+      <h2>GitHub Activity</h2>
+      <div id="github-stats" class="stats-grid" aria-live="polite">
+        <p class="empty-message">Loading GitHub stats…</p>
+      </div>
+      <h3>Recently updated repos</h3>
+      <div id="repo-list" class="card-grid"></div>
     </section>
 
     <section id="contact">
@@ -175,6 +185,72 @@
 
     // Show everything on first load
     renderProjects('All');
+
+    // --- GitHub API ---
+    const GH_USER = 'alyssakhan';
+
+    // fetch() only rejects on network failure. A 404 or 403 still
+    // "succeeds", so we have to check res.ok ourselves.
+    async function getJSON(path) {
+      const res = await fetch(`https://api.github.com${path}`, {
+        headers: { Accept: 'application/vnd.github+json' }
+      });
+      if (!res.ok) throw new Error(`GitHub responded with ${res.status}`);
+      return res.json();
+    }
+
+    // API data is untrusted, so escape it before putting it in innerHTML
+    const esc = str => String(str ?? '').replace(/[&<>"']/g, c =>
+      ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+    async function loadGitHub() {
+      const statsEl = document.getElementById('github-stats');
+      const repoEl = document.getElementById('repo-list');
+
+      try {
+        // Run both requests at the same time instead of one after another
+        const [user, repos] = await Promise.all([
+          getJSON(`/users/${GH_USER}`),
+          getJSON(`/users/${GH_USER}/repos?sort=pushed&per_page=10`)
+        ]);
+
+        const stats = [
+          ['Public repos', user.public_repos],
+          ['Followers', user.followers],
+          ['Following', user.following],
+          ['On GitHub since', new Date(user.created_at).getFullYear()]
+        ];
+
+        statsEl.innerHTML = stats.map(([label, value]) => `
+          <div class="card stat-card">
+            <span class="stat-value">${esc(value)}</span>
+            <span class="stat-label">${esc(label)}</span>
+          </div>`).join('');
+
+        const latest = repos.filter(r => !r.fork).slice(0, 4);
+
+        repoEl.innerHTML = latest.length
+          ? latest.map((r, i) => `
+              <article class="card fade-in" style="animation-delay:${i * 80}ms">
+                <h3>${esc(r.name)}</h3>
+                <p>${esc(r.description || 'No description yet.')}</p>
+                <p class="repo-meta">
+                  ${r.language ? esc(r.language) + ' · ' : ''}★ ${r.stargazers_count}
+                  · Updated ${new Date(r.pushed_at).toLocaleDateString(undefined,
+                    { month: 'short', day: 'numeric', year: 'numeric' })}
+                </p>
+                <a href="${esc(r.html_url)}" class="card-btn">View Repo &rarr;</a>
+              </article>`).join('')
+          : `<p class="empty-message">No public repos yet, check back soon!</p>`;
+
+      } catch (err) {
+        console.error(err);
+        statsEl.innerHTML =
+          `<p class="empty-message">Couldn't load GitHub data right now. Try again later.</p>`;
+      }
+    }
+
+    loadGitHub();
   </script>
 </body>
 </html>
