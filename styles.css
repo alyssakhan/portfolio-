@@ -299,6 +299,35 @@ body, .navbar {
   padding: 2rem;
 }
 
+/* --- 9. GitHub section --- */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0 2rem;
+}
+
+.stat-card {
+  align-items: center;
+  text-align: center;
+  padding: 1.25rem;
+}
+
+.stat-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--accent-color);
+}
+
+.stat-label {
+  font-size: 0.9rem;
+}
+
+.repo-meta {
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+
 /* --- Mobile --- */
 @media (max-width: 600px) {
   .navbar {
